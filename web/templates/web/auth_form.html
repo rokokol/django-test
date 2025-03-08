@@ -2,18 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sing Up 🚪</title>
+    <title>Sing In 🚪</title>
 </head>
 <body>
-<h1>Le' Registration Form.</h1>
-{% if is_registered %}
-<p><b>Thanks for de'registration!</b></p>
-{% else %}
+<h1>Le' Authentication Form.</h1>
 <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button>Submit</button>
 </form>
-{% endif %}
 </body>
 </html>

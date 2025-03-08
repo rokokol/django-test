@@ -1,12 +1,14 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from web.forms import RegistrationForm
+from web.forms import RegistrationForm, AuthForm
 
 
-def main_view(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+def index_view(request):
+    form = AuthForm()
+    return render(request, 'web/index.html', {'form': form})
 
 
 def registration_view(request):
@@ -29,3 +31,17 @@ def registration_view(request):
                       'form': form,
                       'is_registered': is_registered
                   })
+
+
+def auth_view(request):
+    form = AuthForm()
+    if request.method == 'POST':
+        form = AuthForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(**form.cleaned_data)
+            if user is None:
+                form.add_error(None, 'Email or password is incorrect')
+            else:
+                login(request, user)
+                return redirect('index')
+    return render(request, 'web/auth_form.html', {'form': form})

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<title>Django De'La'Test</title>
+
+{% if user.is_authenticated %}
+<p>Вы авторизованы как <b>{{ user.username|escape }}</b></p>
+{% endif %}
+<p><i>Coming soon...</i></p>
+{{ year }}
+</body>
+</html>
