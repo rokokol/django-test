@@ -2,19 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Django De'La'Test</title>
+    <title>Django De'La'Test.</title>
 </head>
 <body>
 <h1><a href="{% url 'index' %}">Django De'La'Test</a></h1>
 <nav>
     {% if user.is_anonymous %}
-    <a href="{% url 'registration' %}">Sing Up</a>
     <a href="{% url 'auth' %}">Sign In</a>
+    <a href="{% url 'registration' %}">Sing Up</a>
+    <p><b><a href="{% url 'registration' %}">Write de'Note</a></b></p>
     {% else %}
     <a>Hello, {{ user.username }}</a>
     <a href="{% url 'logout' %}">Sign Out</a>
+    <p><b><a href="{% url 'note_add' %}">Write de'Note</a></b></p>
     {% endif %}
 </nav>
+<hr style="
+    border: none;
+    height: 3px;
+    background: linear-gradient(to right, #0051b3, #00b9e7);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+"/>
 {% block content %}{% endblock %}
+<hr style="
+    border: none;
+    height: 3px;
+    background: linear-gradient(to right, #003a75, #005c73);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+"/>
+<p>©    Kazan, {% now "Y" %}</p>
 </body>
 </html>

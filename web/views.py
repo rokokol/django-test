@@ -2,12 +2,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from web.forms import RegistrationForm, AuthForm
+from web.forms import RegistrationForm, AuthForm, AddNoteForm
+from web.models import NoteSlots
 
 
 def index_view(request):
     form = AuthForm()
-    return render(request, 'web/index.html', {'form': form})
+    notes = NoteSlots.objects.order_by('?')[:10]
+
+    return render(request, 'web/index.html',
+                  {
+                      'form': form,
+                      'notes': notes
+                  })
 
 
 def registration_view(request):
@@ -25,6 +32,7 @@ def registration_view(request):
 
             is_registered = True
             print(form.cleaned_data)
+
     return render(request, 'web/registration_form.html',
                   {
                       'form': form,
@@ -43,9 +51,22 @@ def auth_view(request):
             else:
                 login(request, user)
                 return redirect('index')
+
     return render(request, 'web/auth_form.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+def note_add_view(request):
+    form = AddNoteForm()
+    if request.method == 'POST':
+        form = AddNoteForm(data=request.POST, initial={'user': request.user})
+        if form.is_valid():
+            note = form.save(commit=True)
+            print(f'note {note} is saved successfully')
+            return redirect('index')
+
+    return render(request, 'web/note_add_form.html', {'form': form})
