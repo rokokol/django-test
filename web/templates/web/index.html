@@ -1,23 +1,23 @@
 {% extends "web/base.html" %}
 {% block content %}
-{% if user.is_authenticated %}
-<p>Wellcum, de'la'<b>{{ user.username|escape }}</b>!</p>
-{% endif %}
-<p><i>You may be interested in...</i></p>
-<ul>
-    {% for note in notes %}
-    <li>
-        <h3>{{ note.title }}</h3>
-        <p>
-            {% if note.text|length <= 50 %}
-            {{ note.text|linebreaksbr }}
-            {% else %}
-            {{ note.text|truncatechars:50|linebreaksbr }}
-            {% endif %}
-        </p>
-    </li>
-    {% endfor %}
-</ul>
+    {% if user.is_authenticated %}
+        <h2>Wellcum, de'la'<b>{{ user.username|escape }}</b>!</h2>
+    {% endif %}
+    <p><i>You may be interested in...</i></p>
+    <ul>
+        {% for note in notes %}
+            <li>
+                <h3><a href="{% url 'note_view' note.id %}">{{ note.title }}</a></h3>
+                <p>
+                    {% if note.text|length <= 50 %}
+                        {{ note.text|linebreaksbr }}
+                    {% else %}
+                        {{ note.text|truncatechars:50|linebreaksbr }}
+                    {% endif %}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 

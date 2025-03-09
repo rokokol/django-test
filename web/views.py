@@ -70,3 +70,20 @@ def note_add_view(request):
             return redirect('index')
 
     return render(request, 'web/note_add_form.html', {'form': form})
+
+
+def note_edit_view(request, note_id):
+    is_real_id = NoteSlots.objects.filter(id=note_id).exists()
+    note = None
+    if is_real_id:
+        note = NoteSlots.objects.get(id=note_id)
+    if (id is None or
+          note is None or
+          not is_real_id):
+        return note_add_view(request)
+    else:
+        if not request.user.is_authenticated or note.user.id != request.user.id:
+            print(1)
+        else:
+            print(2)
+        return note_add_view(request)

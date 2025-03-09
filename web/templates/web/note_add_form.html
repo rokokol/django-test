@@ -1,9 +1,9 @@
 {% extends 'web/base.html' %}
 {% block content %}
-<h2>La' Note Creation</h2>
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>Create.</button>
-</form>
+    <h2>La' Note Creation</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Create.</button>
+    </form>
 {% endblock %}

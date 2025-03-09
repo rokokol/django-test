@@ -8,13 +8,17 @@
 <h1><a href="{% url 'index' %}">Django De'La'Test</a></h1>
 <nav>
     {% if user.is_anonymous %}
-    <a href="{% url 'auth' %}">Sign In</a>
-    <a href="{% url 'registration' %}">Sing Up</a>
-    <p><b><a href="{% url 'registration' %}">Write de'Note</a></b></p>
+        <b><a href="{% url 'registration' %}">Write de'Note</a></b>
+        <div style="text-align: right">
+            <a href="{% url 'auth' %}">Sign In</a>
+            <a href="{% url 'registration' %}">Sing Up</a>
+        </div>
     {% else %}
-    <a>Hello, {{ user.username }}</a>
-    <a href="{% url 'logout' %}">Sign Out</a>
-    <p><b><a href="{% url 'note_add' %}">Write de'Note</a></b></p>
+        <b><a href="{% url 'note_add' %}">Write de'Note</a></b>
+        <div style="text-align: right">
+            <i>Hello, <b>{{ user.username }}</b> | </i>
+            <a href="{% url 'logout' %}">Sign Out</a>
+        </div>
     {% endif %}
 </nav>
 <hr style="
@@ -30,6 +34,6 @@
     background: linear-gradient(to right, #003a75, #005c73);
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 "/>
-<p>©    Kazan, {% now "Y" %}</p>
+<p>© Kazan, {% now "Y" %}</p>
 </body>
 </html>

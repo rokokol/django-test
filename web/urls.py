@@ -1,6 +1,6 @@
 from django.urls import path
 
-from web.views import index_view, registration_view, auth_view, logout_view, note_add_view
+from web.views import index_view, registration_view, auth_view, logout_view, note_add_view, note_edit_view
 
 urlpatterns = [
     path("", index_view, name="index"),
@@ -8,4 +8,5 @@ urlpatterns = [
     path("auth/", auth_view, name="auth"),
     path("logout/", logout_view, name="logout"),
     path("notes/add/", note_add_view, name="note_add"),
+    path("notes/<int:note_id>/", note_edit_view, name="note_view"),
 ]
