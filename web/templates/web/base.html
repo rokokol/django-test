@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django De'La'Test</title>
+</head>
+<body>
+<h1><a href="{% url 'index' %}">Django De'La'Test</a></h1>
+<nav>
+    {% if user.is_anonymous %}
+    <a href="{% url 'registration' %}">Sing Up</a>
+    <a href="{% url 'auth' %}">Sign In</a>
+    {% else %}
+    <a>Hello, {{ user.username }}</a>
+    <a href="{% url 'logout' %}">Sign Out</a>
+    {% endif %}
+</nav>
+{% block content %}{% endblock %}
+</body>
+</html>

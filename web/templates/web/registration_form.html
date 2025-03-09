@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sing Up 🚪</title>
-</head>
-<body>
-<h1>Le' Registration Form.</h1>
+{% extends 'web/base.html' %}
+{% block content %}
+<h2>Le' Registration Form.</h2>
 {% if is_registered %}
 <p><b>Thanks for de'registration!</b></p>
 {% else %}
@@ -15,5 +10,4 @@
     <button>Submit</button>
 </form>
 {% endif %}
-</body>
-</html>
+{% endblock %}

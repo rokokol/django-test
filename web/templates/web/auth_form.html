@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sing In 🚪</title>
-</head>
-<body>
-<h1>Le' Authentication Form.</h1>
+{% extends 'web/base.html' %}
+{% block content %}
+<h2>Le' Authentication Form.</h2>
 <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button>Submit</button>
 </form>
-</body>
-</html>
+{% endblock %}

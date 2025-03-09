@@ -1,6 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from web.forms import RegistrationForm, AuthForm
@@ -45,3 +44,8 @@ def auth_view(request):
                 login(request, user)
                 return redirect('index')
     return render(request, 'web/auth_form.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
