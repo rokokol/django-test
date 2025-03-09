@@ -1,0 +1,10 @@
+{% extends "web/base.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+<p>Вы авторизованы как <b>{{ user.username|escape }}</b></p>
+{% endif %}
+<p><i>Coming soon...</i></p>
+{{ year }}
+{% endblock %}
+
+

@@ -1,0 +1,13 @@
+{% extends 'web/base.html' %}
+{% block content %}
+<h2>Le' Registration Form.</h2>
+{% if is_registered %}
+<p><b>Thanks for de'registration!</b></p>
+{% else %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Submit</button>
+</form>
+{% endif %}
+{% endblock %}
