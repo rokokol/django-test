@@ -1,13 +1,21 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from web.forms import RegistrationForm, AuthForm
+from web.forms import RegistrationForm, AuthForm, AddNoteForm, NoteViewForm
+from web.models import NoteSlots
 
 
 def index_view(request):
     form = AuthForm()
-    return render(request, 'web/index.html', {'form': form})
+    notes = NoteSlots.objects.order_by('?')[:10]
+
+    return render(request, 'web/index.html',
+                  {
+                      'form': form,
+                      'notes': notes
+                  })
 
 
 def registration_view(request):
@@ -25,6 +33,7 @@ def registration_view(request):
 
             is_registered = True
             print(form.cleaned_data)
+
     return render(request, 'web/registration_form.html',
                   {
                       'form': form,
@@ -43,9 +52,65 @@ def auth_view(request):
             else:
                 login(request, user)
                 return redirect('index')
+
     return render(request, 'web/auth_form.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+@login_required
+def note_add_view(request):
+    form = AddNoteForm()
+    if request.method == 'POST':
+        form = AddNoteForm(data=request.POST, initial={'user': request.user})
+        if form.is_valid():
+            note = form.save(commit=True)
+            print(f'note {note} is saved successfully')
+            return redirect('index')
+
+    return render(request, 'web/note_add_form.html', {
+        'form': form,
+        'edit': False
+    })
+
+@login_required
+def note_edit(request, note_id):
+    note = get_object_or_404(NoteSlots, pk=note_id)
+    if note.user.id != request.user.id:
+        return note_view_view(request, note_id, )
+    else:
+        form = AddNoteForm(instance=note)
+        if request.method == 'POST':
+            form = AddNoteForm(data=request.POST, instance=note, initial={'user': request.user})
+            if form.is_valid():
+                note = form.save(commit=True)
+                print(f'note {note} is edited successfully')
+            return redirect('index')
+
+        return render(request, 'web/note_add_form.html', {
+            'form': form,
+            'edit': True
+        })
+
+
+def note_view_view(request, note_id):
+    note = get_object_or_404(NoteSlots, pk=note_id)
+    form = NoteViewForm(instance=note)
+    return render(request, 'web/note_view_form.html', {
+        'form': form,
+        'note': note,
+        'viewer_id': request.user.id
+    })
+
+@login_required
+def note_my_view(request):
+    form = AuthForm()
+    notes = NoteSlots.objects.filter(user=request.user)
+
+    return render(request, 'web/index.html',
+                  {
+                      'form': form,
+                      'notes': notes
+                  })

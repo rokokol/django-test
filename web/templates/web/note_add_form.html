@@ -1,6 +1,10 @@
 {% extends 'web/base.html' %}
 {% block content %}
-    <h2>Le' Authentication Form.</h2>
+    {% if edit %}
+        <h2>La' Note Edition</h2>
+    {% else %}
+        <h2>La' Note Creation</h2>
+    {% endif %}
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}

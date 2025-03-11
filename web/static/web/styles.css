@@ -1,0 +1,315 @@
+/* ======================================================
+   Global Styles
+====================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f8ff;
+    color: #333;
+}
+
+/* ======================================================
+   Header
+====================================================== */
+header {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    color: #fff;
+}
+
+header h1 a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+header h1 a:hover {
+    color: #676552;
+}
+
+/* ======================================================
+   Navigation
+====================================================== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #e0f7fa;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav a {
+    color: #1f3f5b;
+    text-decoration: none;
+    margin: 0 8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #b2ebf2;
+    color: #004c8c;
+}
+
+nav b a {
+    font-weight: 600;
+}
+
+nav i {
+    margin-right: 4px;
+}
+
+/* ======================================================
+   Buttons
+====================================================== */
+button,
+input[type="submit"],
+input[type="button"] {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+}
+
+button:active,
+input[type="submit"]:active,
+input[type="button"]:active {
+    background: #1f3f5b;
+    transform: translateY(0);
+}
+
+/* Small button variant */
+button.small,
+input[type="submit"].small,
+input[type="button"].small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* Large button variant */
+button.large,
+input[type="submit"].large,
+input[type="button"].large {
+    padding: 14px 28px;
+    font-size: 18px;
+}
+
+/* Danger (red) button variant */
+button.danger,
+input[type="submit"].danger,
+input[type="button"].danger {
+    background: linear-gradient(to right, #ff4b4b, #ff6666);
+}
+
+button.danger:hover,
+input[type="submit"].danger:hover,
+input[type="button"].danger:hover {
+    background: linear-gradient(to right, #ff6666, #ff4b4b);
+}
+
+/* Success (green) button variant */
+button.success,
+input[type="submit"].success,
+input[type="button"].success {
+    background: linear-gradient(to right, #4CAF50, #45a049);
+}
+
+button.success:hover,
+input[type="submit"].success:hover,
+input[type="button"].success:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50);
+}
+
+/* ======================================================
+   Links
+====================================================== */
+a {
+    color: #1f3f5b;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+a:hover {
+    color: #2575fc;
+    background-color: #e0f7fa;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+a.btn-link {
+    display: inline-block;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.1s ease;
+    margin: 0 5px;
+}
+
+a.btn-link:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    transform: translateY(-2px);
+}
+
+a.btn-link:active {
+    background: #1f3f5b;
+    transform: translateY(0);
+}
+
+/* ======================================================
+   Form Elements (Text Fields & Textareas)
+====================================================== */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2575fc;
+    box-shadow: 0 0 8px rgba(37, 117, 252, 0.5);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* Size variants for form elements */
+input.small,
+textarea.small {
+    padding: 8px;
+    font-size: 14px;
+}
+
+input.large,
+textarea.large {
+    padding: 16px;
+    font-size: 18px;
+}
+
+/* Error state for form elements */
+input.error,
+textarea.error {
+    border-color: #ff4b4b;
+}
+
+input.error:focus,
+textarea.error:focus {
+    box-shadow: 0 0 8px rgba(255, 75, 75, 0.5);
+}
+
+/* Disabled state for form elements */
+input:disabled,
+textarea:disabled {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* ======================================================
+   Horizontal Rules
+====================================================== */
+.hr-styled {
+    border: none;
+    height: 3px;
+    background: linear-gradient(to right, #ff66cc, #ff9966);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+.hr-styled-bottom {
+    background: linear-gradient(to right, #00b9e7, #a900ff);
+    margin-bottom: 20px;
+}
+
+/* ======================================================
+   Main Content Area
+====================================================== */
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+}
+
+/* ======================================================
+   Footer
+====================================================== */
+footer {
+    text-align: center;
+    color: #444;
+    margin: 10px 0 20px;
+}
+
+/* ======================================================
+   Final Touches & Responsive Adjustments
+====================================================== */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+
+/* ======================================================
+   End of Stylesheet
+====================================================== */

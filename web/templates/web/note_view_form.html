@@ -1,0 +1,18 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    <form>
+        <h2><b>{{ note.title }}</b></h2>
+        <p style="opacity: 0.5;"><i>by sir de'<b>{{ note.user.username }}</b></i></p>
+        <p>{{ note.created }}</p>
+        <hr/>
+        <div style="max-height: 80vh; overflow-y: auto; word-wrap: break-word; white-space: pre-wrap;">
+            <p>{{ note.text }}</p>
+        </div>
+
+        {% if note.user.id == viewer_id %}
+            <a href="{% url 'note_edit' note.id %}">
+                <button type="button" class="btn btn-primary">Edit.</button>
+            </a>
+        {% endif %}
+    </form>
+{% endblock %}

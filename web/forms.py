@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from web.models import NoteSlots
+
 User = get_user_model()
 
 
@@ -64,3 +66,50 @@ class AuthForm(forms.Form):
             'autocomplete': 'off'
         })
     )
+
+
+class AddNoteForm(forms.ModelForm):
+    title = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your title'
+        })
+    )
+    text = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your note',
+            'rows': 12,
+        })
+    )
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if title:
+            title = title.strip()
+        return title
+
+    def clean_text(self):
+        text = self.cleaned_data.get('text')
+        if text:
+            text = text.strip()
+        return text
+
+    def save(self, commit=True):
+        self.instance.user = self.initial['user']
+        return super().save(commit=commit)
+
+    class Meta:
+        model = NoteSlots
+        fields = ('title', 'text')
+
+
+class NoteViewForm(forms.ModelForm):
+    class Meta:
+        model = NoteSlots
+        fields = ('title', 'text', 'reactions')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.disabled = True
