@@ -2,6 +2,7 @@
 {% block content %}
     <form>
         <h2><b>{{ note.title }}</b></h2>
+        <p style="opacity: 0.5;"><i>by sir de'<b>{{ note.user.username }}</b></i></p>
         <p>{{ note.created }}</p>
         <hr/>
         <div style="max-height: 80vh; overflow-y: auto; word-wrap: break-word; white-space: pre-wrap;">

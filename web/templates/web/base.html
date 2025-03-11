@@ -1,39 +1,57 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Django De'La'Test.</title>
+    <link rel="stylesheet" href="{% static 'web/styles.css' %}">
 </head>
 <body>
-<h1><a href="{% url 'index' %}">Django De'La'Test</a></h1>
+<header>
+    <h1><a href="{% url 'index' %}">Django De'La'Test</a></h1>
+</header>
+
 <nav>
-    {% if user.is_anonymous %}
-        <b><a href="{% url 'registration' %}">Write de'Note</a></b>
-        <div style="text-align: right">
-            <a href="{% url 'auth' %}">Sign In</a>
-            <a href="{% url 'registration' %}">Sing Up</a>
-        </div>
-    {% else %}
-        <b><a href="{% url 'note_add' %}">Write de'Note</a></b>
-        <div style="text-align: right">
-            <i>Hello, <b>{{ user.username }}</b> | </i>
-            <a href="{% url 'logout' %}">Sign Out</a>
-        </div>
-    {% endif %}
+    <div class="nav-left">
+        <a href="{% url 'note_add' %}">
+            <button type='button' class='small'>Write de'Note.</button>
+        </a>
+        {% if not user.is_anonymous %}
+            <a href="{% url 'note_my' %}">
+                <button type='button' class='small'>My se'Notes.</button>
+            </a>
+        {% endif %}
+    </div>
+    <div class="nav-right">
+        {% if user.is_anonymous %}
+            <a href="{% url 'auth' %}">
+                <button type='button' class='small'>Sign In.</button>
+            </a>
+            <a href="{% url 'registration' %}">
+                <button type='button' class='small success'>Sign Up.</button>
+            </a>
+        {% else %}
+            <i>Hello, <b>{{ user.username }}</b> |</i>
+            <a href="{% url 'logout' %}">
+                <button type='button' class='small danger'>Sign Out.</button>
+            </a>
+        {% endif %}
+    </div>
 </nav>
-<hr style="
-    border: none;
-    height: 3px;
-    background: linear-gradient(to right, #0051b3, #00b9e7);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-"/>
-{% block content %}{% endblock %}
-<hr style="
-    border: none;
-    height: 3px;
-    background: linear-gradient(to right, #003a75, #005c73);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-"/>
-<p>© Kazan, {% now "Y" %}</p>
+
+<hr class="hr-styled">
+
+<main>
+    {% block content %}
+        <h2>Wellcum, de'la'lolus!</h2>
+        <p>You may be interested in...</p>
+    {% endblock %}
+</main>
+
+<hr class="hr-styled hr-styled-bottom">
+
+<footer>
+    <p>© Kazan, {% now "Y" %}</p>
+</footer>
 </body>
 </html>

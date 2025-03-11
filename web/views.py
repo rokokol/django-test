@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -59,7 +60,7 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-
+@login_required
 def note_add_view(request):
     form = AddNoteForm()
     if request.method == 'POST':
@@ -74,7 +75,7 @@ def note_add_view(request):
         'edit': False
     })
 
-
+@login_required
 def note_edit(request, note_id):
     note = get_object_or_404(NoteSlots, pk=note_id)
     if note.user.id != request.user.id:
@@ -102,3 +103,14 @@ def note_view_view(request, note_id):
         'note': note,
         'viewer_id': request.user.id
     })
+
+@login_required
+def note_my_view(request):
+    form = AuthForm()
+    notes = NoteSlots.objects.filter(user=request.user)
+
+    return render(request, 'web/index.html',
+                  {
+                      'form': form,
+                      'notes': notes
+                  })

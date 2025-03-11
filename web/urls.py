@@ -10,5 +10,5 @@ urlpatterns = [
     path("notes/add/", note_add_view, name="note_add"),
     path("notes/edit/<int:note_id>/", note_edit, name="note_edit"),
     path("notes/view/<int:note_id>/", note_view_view, name="note_view"),
-
+    path("notes/my/", note_my_view, name="note_my"),
 ]
