@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from web.forms import RegistrationForm, AuthForm, AddNoteForm
+from web.forms import RegistrationForm, AuthForm, AddNoteForm, NoteViewForm
 from web.models import NoteSlots
 
 
@@ -69,21 +69,35 @@ def note_add_view(request):
             print(f'note {note} is saved successfully')
             return redirect('index')
 
-    return render(request, 'web/note_add_form.html', {'form': form})
+    return render(request, 'web/note_add_form.html', {
+        'form': form,
+        'edit': False
+    })
 
 
-def note_edit_view(request, note_id):
-    is_real_id = NoteSlots.objects.filter(id=note_id).exists()
-    note = None
-    if is_real_id:
-        note = NoteSlots.objects.get(id=note_id)
-    if (id is None or
-          note is None or
-          not is_real_id):
-        return note_add_view(request)
+def note_edit(request, note_id):
+    note = get_object_or_404(NoteSlots, pk=note_id)
+    if note.user.id != request.user.id:
+        return note_view_view(request, note_id)
     else:
-        if not request.user.is_authenticated or note.user.id != request.user.id:
-            print(1)
-        else:
-            print(2)
-        return note_add_view(request)
+        form = AddNoteForm(instance=note)
+        if request.method == 'POST':
+            form = AddNoteForm(data=request.POST, instance=note, initial={'user': request.user})
+            if form.is_valid():
+                note = form.save(commit=True)
+                print(f'note {note} is edited successfully')
+            return redirect('index')
+
+        return render(request, 'web/note_add_form.html', {
+            'form': form,
+            'edit': True
+        })
+
+
+def note_view_view(request, note_id):
+    note = get_object_or_404(NoteSlots, pk=note_id)
+    form = NoteViewForm(instance=note)
+    return render(request, 'web/note_view_form.html', {
+        'form': form,
+        'note': note
+    })
