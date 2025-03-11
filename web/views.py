@@ -78,7 +78,7 @@ def note_add_view(request):
 def note_edit(request, note_id):
     note = get_object_or_404(NoteSlots, pk=note_id)
     if note.user.id != request.user.id:
-        return note_view_view(request, note_id)
+        return note_view_view(request, note_id, )
     else:
         form = AddNoteForm(instance=note)
         if request.method == 'POST':
@@ -99,5 +99,6 @@ def note_view_view(request, note_id):
     form = NoteViewForm(instance=note)
     return render(request, 'web/note_view_form.html', {
         'form': form,
-        'note': note
+        'note': note,
+        'viewer_id': request.user.id
     })

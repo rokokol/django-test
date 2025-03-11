@@ -7,11 +7,7 @@
     <ul>
         {% for note in notes %}
             <li>
-                {% if user.is_authenticated %}
-                    <h3><a href="{% url 'note_edit' note.id %}">{{ note.title }}</a></h3>
-                {% else %}
-                    <h3><a href="{% url 'note_view' note.id %}">{{ note.title }}</a></h3>
-                {% endif %}
+                <h3><a href="{% url 'note_view' note.id %}">{{ note.title }}</a></h3>
                 <p>
                     {% if note.text|length <= 50 %}
                         {{ note.text|linebreaksbr }}
